@@ -1,0 +1,9 @@
+# Netlify 設定（Git連携でデプロイする場合に使用）
+# ドラッグ＆ドロップの場合は不要です
+
+[build]
+  command = "npm run build"
+  publish = "out"
+
+[build.environment]
+  NODE_VERSION = "20"
