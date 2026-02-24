@@ -1,7 +1,6 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
-import Image from "next/image";
 import { Container } from "@/components/ui/container";
 import { ButtonLink } from "@/components/ui/button";
 import { SALON_NAME } from "@/lib/content";
@@ -16,7 +15,17 @@ export function HeroSection() {
 
   return (
     <section className="relative overflow-hidden border-b border-[color:var(--border-soft)] bg-[color:var(--bg-base)]">
-      <Container className="relative flex min-h-[70vh] flex-col gap-10 py-16 md:flex-row md:items-center md:py-24">
+      <video
+        className="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-60"
+        src="/dashboard-bg.mov"
+        autoPlay
+        muted
+        loop
+        playsInline
+      />
+      <div className="pointer-events-none absolute inset-0 bg-black/40" />
+
+      <Container className="relative z-10 flex min-h-[70vh] flex-col gap-10 py-16 md:flex-row md:items-center md:py-24">
         <div className="relative z-10 max-w-xl space-y-8">
           <motion.p
             className="text-xs uppercase tracking-[0.18em] text-subtle"
@@ -85,24 +94,16 @@ export function HeroSection() {
         </div>
 
         <motion.div
-          className="relative ml-auto h-[260px] w-full max-w-sm overflow-hidden rounded-[12px] border border-[color:var(--border-soft)] bg-[color:var(--bg-surface)] md:h-[360px]"
+          className="relative ml-auto h-[260px] w-full max-w-sm overflow-hidden rounded-[12px] border border-[color:var(--border-soft)] bg-black/30 md:h-[360px] backdrop-blur-sm"
           initial={{ scale: prefersReducedMotion ? 1 : 1.05, opacity: 0, y: 20 }}
           animate={{ scale: 1, opacity: 1, y: 0 }}
-          transition={{ 
-            duration: prefersReducedMotion ? 0.0 : 1.3, 
-            ease: [0.16, 1, 0.3, 1], 
-            delay: 0.4 
+          transition={{
+            duration: prefersReducedMotion ? 0.0 : 1.3,
+            ease: [0.16, 1, 0.3, 1],
+            delay: 0.4,
           }}
         >
-          <Image
-            src="https://images.unsplash.com/photo-1562322140-8baeececf3df?auto=format&fit=crop&w=1200&q=85"
-            alt="プロフェッショナルなヘアサロンの作業風景"
-            fill
-            priority
-            sizes="(min-width: 1024px) 380px, 100vw"
-            className="object-cover"
-          />
-          <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/40 via-black/5 to-transparent" />
+          <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/50 via-black/10 to-transparent" />
           <div className="pointer-events-none absolute bottom-4 left-4 text-[11px] text-subtle">
             <p className="font-serif tracking-[0.16em] text-main">Quiet Confidence</p>
             <p className="mt-1">LUXE / AOYAMA Studio</p>
