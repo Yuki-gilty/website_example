@@ -1,3 +1,4 @@
 # Git LFS: 100MB超の動画をGitHubで管理する場合
 # https://git-lfs.com/ をインストール後、リポジトリで git lfs install を実行してください
 public/*.mov filter=lfs diff=lfs merge=lfs -text
+public/*.mp4 filter=lfs diff=lfs merge=lfs -text
