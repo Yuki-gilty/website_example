@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Noto_Sans_JP, Cormorant_Garamond } from "next/font/google";
+import { Noto_Sans_JP, Noto_Serif_JP, Cormorant_Garamond } from "next/font/google";
 import "./globals.css";
 import { SALON_NAME } from "@/lib/content";
 
@@ -11,17 +11,24 @@ const sans = Noto_Sans_JP({
 });
 
 const serif = Cormorant_Garamond({
-  variable: "--font-serif",
+  variable: "--font-display",
   subsets: ["latin"],
   weight: ["500", "600"],
   style: ["normal"],
   display: "swap",
 });
 
+const jpSerif = Noto_Serif_JP({
+  variable: "--font-serif",
+  subsets: ["latin"],
+  weight: ["400", "500", "700"],
+  display: "swap",
+});
+
 export const metadata: Metadata = {
   title: `${SALON_NAME} | Hair Salon`,
   description:
-    "静かにカッコいい空気感にこだわった、青山のプライベートヘアサロン。",
+    "背景動画と上質なトランジションで魅せる、青山のプライベートヘアサロン。",
 };
 
 export default function RootLayout({
@@ -32,7 +39,7 @@ export default function RootLayout({
   return (
     <html lang="ja">
       <body
-        className={`${sans.variable} ${serif.variable} antialiased bg-base text-main`}
+        className={`${sans.variable} ${serif.variable} ${jpSerif.variable} antialiased bg-base text-main`}
       >
         {children}
       </body>

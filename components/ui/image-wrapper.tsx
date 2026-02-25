@@ -8,7 +8,7 @@ type ImageWrapperProps = ImageProps & {
   className?: string;
 };
 
-export function ImageWrapper({ className, ...props }: ImageWrapperProps) {
+export function ImageWrapper({ className, alt, ...props }: ImageWrapperProps) {
   const [loaded, setLoaded] = useState(false);
 
   return (
@@ -20,6 +20,7 @@ export function ImageWrapper({ className, ...props }: ImageWrapperProps) {
     >
       <Image
         {...props}
+        alt={alt}
         onLoad={() => setLoaded(true)}
         className={`transition-opacity duration-500 ${className ?? ""}`}
       />

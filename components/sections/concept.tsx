@@ -4,10 +4,10 @@ import { conceptText } from "@/lib/content";
 
 export function ConceptSection() {
   return (
-    <Section id="concept" label="Concept" title="Quiet, but present.">
-      <Reveal className="space-y-3">
+    <Section id="concept" label="Concept" title="Quiet, but unmistakable.">
+      <Reveal className="space-y-4">
         {conceptText.map((line) => (
-          <p key={line} className="max-w-2xl text-sm leading-relaxed md:text-base">
+          <p key={line} className="max-w-3xl text-sm leading-relaxed md:text-base">
             {line}
           </p>
         ))}
@@ -15,4 +15,3 @@ export function ConceptSection() {
     </Section>
   );
 }
-

@@ -2,6 +2,7 @@ import { SiteHeader } from "@/components/layout/site-header";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { MobileReserveBar } from "@/components/layout/mobile-reserve-bar";
 import { HeroSection } from "@/components/sections/hero";
+import { NewsSection } from "@/components/sections/news";
 import { ConceptSection } from "@/components/sections/concept";
 import { MenuSection } from "@/components/sections/menu";
 import { StylistSection } from "@/components/sections/stylists";
@@ -19,6 +20,7 @@ export default function Home() {
         <MenuSection />
         <StylistSection />
         <GallerySection />
+        <NewsSection />
         <ReviewsSection />
         <AccessSection />
       </main>

@@ -1,12 +1,36 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
+import { useRef } from "react";
+import {
+  motion,
+  useReducedMotion,
+  useScroll,
+  useTransform,
+} from "framer-motion";
 import { Container } from "@/components/ui/container";
 import { ButtonLink } from "@/components/ui/button";
 import { SALON_NAME } from "@/lib/content";
 
 export function HeroSection() {
+  const sectionRef = useRef<HTMLElement | null>(null);
   const prefersReducedMotion = useReducedMotion();
+
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end start"],
+  });
+
+  const videoScale = useTransform(
+    scrollYProgress,
+    [0, 1],
+    [1, prefersReducedMotion ? 1 : 1.08],
+  );
+  const contentY = useTransform(
+    scrollYProgress,
+    [0, 1],
+    [0, prefersReducedMotion ? 0 : -58],
+  );
+  const contentOpacity = useTransform(scrollYProgress, [0, 0.75], [1, 0.78]);
 
   const textVariants = {
     hidden: { opacity: 0, y: prefersReducedMotion ? 0 : 20 },
@@ -14,103 +38,127 @@ export function HeroSection() {
   };
 
   return (
-    <section className="relative overflow-hidden border-b border-[color:var(--border-soft)] bg-[color:var(--bg-base)]">
-      <video
-        className="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-60"
+    <section ref={sectionRef} className="relative overflow-hidden bg-[color:var(--bg-base)]">
+      <motion.video
+        style={{ scale: videoScale }}
+        className="pointer-events-none absolute inset-0 h-full w-full object-cover"
         src="/dashboard-bg.mov"
         autoPlay
         muted
         loop
         playsInline
       />
-      <div className="pointer-events-none absolute inset-0 bg-black/40" />
 
-      <Container className="relative z-10 flex min-h-[70vh] flex-col gap-10 py-16 md:flex-row md:items-center md:py-24">
-        <div className="relative z-10 max-w-xl space-y-8">
-          <motion.p
-            className="text-xs uppercase tracking-[0.18em] text-subtle"
-            initial="hidden"
-            animate="visible"
-            variants={textVariants}
-            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
-          >
-            Hair Salon — Tokyo Aoyama
-          </motion.p>
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/42 via-black/56 to-[color:var(--bg-base)]/94" />
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(68%_56%_at_18%_82%,rgba(0,0,0,0.82),transparent_72%)]" />
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(56%_46%_at_84%_80%,rgba(0,0,0,0.74),transparent_74%)]" />
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(46%_36%_at_26%_18%,rgba(255,255,255,0.09),transparent_72%)]" />
+      <div className="pointer-events-none absolute inset-0 bg-black/26 md:hidden" />
 
-          <motion.h1
-            className="font-serif text-[2.1rem] leading-snug tracking-[0.08em] text-main md:text-[2.4rem]"
-            initial="hidden"
-            animate="visible"
-            variants={textVariants}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
-          >
-            {SALON_NAME}
-            <span className="mt-1 block text-[0.95rem] font-normal tracking-[0.06em] text-subtle md:text-base">
-              静かに、輪郭だけを研ぎ澄ますヘアサロン。
-            </span>
-          </motion.h1>
+      <motion.div style={{ y: contentY, opacity: contentOpacity }}>
+        <Container className="relative z-10 flex min-h-[calc(100vh-4rem)] flex-col gap-9 py-14 md:min-h-[calc(100vh-4.4rem)] md:flex-row md:items-end md:justify-between md:gap-12 md:py-24">
+          <div className="max-w-[44rem] space-y-6 md:space-y-7">
+            <motion.p
+              className="inline-flex items-center rounded-full border border-white/22 bg-white/10 px-3 py-1 text-[10px] uppercase tracking-[0.16em] text-white/88 backdrop-blur-sm"
+              initial="hidden"
+              animate="visible"
+              variants={textVariants}
+              transition={{ duration: 0.68, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
+            >
+              Hair Salon / Tokyo Aoyama
+            </motion.p>
 
-          <motion.p
-            className="max-w-md text-sm leading-relaxed text-subtle md:text-base"
-            initial="hidden"
-            animate="visible"
-            variants={textVariants}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.3 }}
-          >
-            毎日を少しだけ軽くするための髪型を、過剰な演出ではなく、
-            さりげないバランスでつくります。
-          </motion.p>
+            <motion.h1
+              className="text-[2.45rem] leading-[1.08] tracking-[0.04em] text-main md:text-[3.95rem]"
+              style={{
+                fontFamily: "var(--font-display)",
+                textShadow: "0 2px 10px rgba(0,0,0,0.42)",
+              }}
+              initial="hidden"
+              animate="visible"
+              variants={textVariants}
+              transition={{ duration: 0.78, ease: [0.16, 1, 0.3, 1], delay: 0.18 }}
+            >
+              {SALON_NAME}
+              <span
+                className="mt-3 block text-[0.93rem] font-normal tracking-[0.05em] text-white/86 md:text-[1.03rem]"
+                style={{ fontFamily: "var(--font-sans)" }}
+              >
+                静かに、かっこよく。余計なものを削ぎ落としたデザイン。
+              </span>
+            </motion.h1>
 
-          <motion.div
-            className="flex flex-wrap items-center gap-4"
-            initial="hidden"
-            animate="visible"
-            variants={textVariants}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.4 }}
-          >
-            <ButtonLink href="#access">予約へ</ButtonLink>
-            <ButtonLink href="#gallery" intent="ghost">
-              スタイルを見る
-            </ButtonLink>
-          </motion.div>
+            <motion.p
+              className="max-w-xl text-sm leading-[1.84] text-white/76 md:text-base"
+              initial="hidden"
+              animate="visible"
+              variants={textVariants}
+              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.28 }}
+            >
+              髪質・骨格・ライフスタイルを丁寧に読み取り、作り込みすぎないのに
+              印象が残るヘアデザインを提供します。
+            </motion.p>
 
-          <motion.div
-            className="mt-6 flex gap-6 text-[11px] text-subtle"
-            initial="hidden"
-            animate="visible"
-            variants={textVariants}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.5 }}
-          >
-            <div>
-              <p className="uppercase tracking-[0.18em] text-subtle/70">Hours</p>
-              <p>Weekday 11:00–20:00</p>
-              <p>Weekend 10:00–19:00</p>
-            </div>
-            <div>
-              <p className="uppercase tracking-[0.18em] text-subtle/70">Place</p>
-              <p>Aoyama, Tokyo</p>
-            </div>
-          </motion.div>
-        </div>
-
-        <motion.div
-          className="relative ml-auto h-[260px] w-full max-w-sm overflow-hidden rounded-[12px] border border-[color:var(--border-soft)] bg-black/30 md:h-[360px] backdrop-blur-sm"
-          initial={{ scale: prefersReducedMotion ? 1 : 1.05, opacity: 0, y: 20 }}
-          animate={{ scale: 1, opacity: 1, y: 0 }}
-          transition={{
-            duration: prefersReducedMotion ? 0.0 : 1.3,
-            ease: [0.16, 1, 0.3, 1],
-            delay: 0.4,
-          }}
-        >
-          <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/50 via-black/10 to-transparent" />
-          <div className="pointer-events-none absolute bottom-4 left-4 text-[11px] text-subtle">
-            <p className="font-serif tracking-[0.16em] text-main">Quiet Confidence</p>
-            <p className="mt-1">LUXE / AOYAMA Studio</p>
+            <motion.div
+              className="flex flex-col gap-3 sm:flex-row sm:items-center"
+              initial="hidden"
+              animate="visible"
+              variants={textVariants}
+              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.36 }}
+            >
+              <ButtonLink
+                href="/reserve"
+                aria-label="予約ページへ移動"
+                className="min-h-11 px-6 !border-white/80 !bg-white/14 !text-white"
+              >
+                予約へ
+              </ButtonLink>
+              <ButtonLink
+                href="#gallery"
+                intent="ghost"
+                aria-label="スタイルギャラリーへ移動"
+                className="min-h-11 px-6 !border-white/24 !text-white/82"
+              >
+                スタイルを見る
+              </ButtonLink>
+            </motion.div>
           </div>
-        </motion.div>
-      </Container>
+
+          <motion.aside
+            className="relative w-full max-w-[394px] rounded-[18px] border border-white/23 bg-black/34 p-6 text-main shadow-[0_24px_55px_rgba(0,0,0,0.42)] backdrop-blur-xl"
+            initial={{ scale: prefersReducedMotion ? 1 : 1.03, opacity: 0, y: 20 }}
+            animate={{ scale: 1, opacity: 1, y: 0 }}
+            transition={{
+              duration: prefersReducedMotion ? 0 : 1.05,
+              ease: [0.16, 1, 0.3, 1],
+              delay: 0.45,
+            }}
+          >
+            <div className="pointer-events-none absolute inset-x-5 top-0 h-px bg-gradient-to-r from-transparent via-white/45 to-transparent" />
+            <p className="text-[10px] uppercase tracking-[0.18em] text-white/70">Reservation</p>
+            <p
+              className="mt-3 text-[1.34rem] tracking-[0.02em] text-main"
+              style={{ fontFamily: "var(--font-serif)" }}
+            >
+              落ち着いた個室空間
+            </p>
+            <p className="mt-3 text-sm leading-[1.8] text-white/77">
+              初回カウンセリングは30分。髪の悩みと希望を言語化し、最適なメニューを提案します。
+            </p>
+
+            <div className="mt-6 grid grid-cols-2 gap-3 text-[11px]">
+              <div className="rounded-[12px] border border-white/20 bg-white/[0.03] px-4 py-3">
+                <p className="uppercase tracking-[0.14em] text-white/62">Weekday</p>
+                <p className="mt-1 text-[12px] text-main">11:00 - 20:00</p>
+              </div>
+              <div className="rounded-[12px] border border-white/20 bg-white/[0.03] px-4 py-3">
+                <p className="uppercase tracking-[0.14em] text-white/62">Weekend</p>
+                <p className="mt-1 text-[12px] text-main">10:00 - 19:00</p>
+              </div>
+            </div>
+          </motion.aside>
+        </Container>
+      </motion.div>
     </section>
   );
 }
-

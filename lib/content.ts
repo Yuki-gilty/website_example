@@ -24,34 +24,52 @@ export type Review = {
   name: string;
 };
 
+export type NewsItem = {
+  id: number;
+  date: string;
+  category: string;
+  title: string;
+  body: string;
+};
+
 export const SALON_NAME = "LUXE / AOYAMA";
 
 export const conceptText = [
-  "表参道の静かな路地裏に佇む、プライベートヘアサロン。",
-  "一人ひとりの骨格とライフスタイルに寄り添い、毎日を少しだけ軽くする髪型を提案します。",
-  "過剰な演出はなく、自然な美しさを引き出すことにこだわった空間です。",
+  "表参道の喧騒から一歩離れた、静かなプライベートヘアサロン。",
+  "髪型だけでなく、服やライフスタイルまで含めて似合うバランスを設計します。",
+  "過剰に盛らず、触れたくなる質感と長く楽しめるシルエットを大切にしています。",
 ];
 
 export const menuItems: MenuItem[] = [
   {
-    name: "Cut",
-    description: "骨格とライフスタイルを考慮した、自然な動きのあるカット。",
+    name: "Cut & Styling",
+    description: "骨格・毛流れ・クセを見極め、再現性まで考えたデザインカット。",
     price: "¥8,800",
   },
   {
-    name: "Color",
-    description: "肌のトーンに合わせた、透明感のあるニュアンスカラー。",
+    name: "Color Design",
+    description: "透明感と深みを両立した、肌トーンに馴染むカラー提案。",
     price: "¥11,000〜",
   },
   {
-    name: "Perm",
-    description: "自然な動きを生み出す、柔らかく上品なパーマ。",
-    price: "¥13,200〜",
+    name: "Head Spa",
+    description: "頭皮環境を整えながら、疲れをリセットする30分スパ。",
+    price: "¥6,600",
   },
   {
-    name: "Treatment",
-    description: "髪質改善を目的とした、オーダーメイドのトリートメント。",
+    name: "Hair Repair",
+    description: "質感とツヤを引き上げる、髪質に合わせた集中トリートメント。",
     price: "¥7,700〜",
+  },
+  {
+    name: "Premium Course",
+    description: "カット・カラー・トリートメントを組み合わせた総合メンテナンス。",
+    price: "¥18,000〜",
+  },
+  {
+    name: "Men's Grooming",
+    description: "清潔感と色気を両立する、メンズ向けカットと眉デザイン。",
+    price: "¥9,200",
   },
 ];
 
@@ -59,28 +77,28 @@ export const stylists: Stylist[] = [
   {
     name: "石川 直",
     role: "Director",
-    specialty: "ボブ / ショート / カラーコントロール",
+    specialty: "ショート / ミニボブ / 質感コントロール",
     instagram: "https://instagram.com",
     photoId: "1524504388940-b1c1722653e1",
   },
   {
     name: "新井 美空",
-    role: "Stylist",
-    specialty: "ロングレイヤー / ブリーチワーク",
+    role: "Top Stylist",
+    specialty: "ロングレイヤー / 艶カラー / 顔まわりデザイン",
     instagram: "https://instagram.com",
     photoId: "1494790108371-be9c29b29330",
   },
   {
     name: "近藤 蒼太",
     role: "Stylist",
-    specialty: "メンズ / パーマデザイン",
+    specialty: "メンズカット / ニュアンスパーマ / バーバースタイル",
     instagram: "https://instagram.com",
     photoId: "1507003211169-0a1dd7228f2d",
   },
   {
     name: "高橋 凛",
     role: "Colorist",
-    specialty: "ハイトーン / 透明感のあるカラー",
+    specialty: "ハイトーン / ブリーチワーク / デザインカラー",
     instagram: "https://instagram.com",
     photoId: "1534528741775-53994a69daeb",
   },
@@ -100,85 +118,94 @@ export const galleryItems: GalleryItem[] = [
   {
     id: 3,
     src: "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=1200&q=85",
-    alt: "サロンの内装 - モダンで洗練された空間",
+    alt: "モダンで洗練されたサロン空間",
   },
   {
     id: 4,
     src: "https://images.unsplash.com/photo-1562322140-8baeececf3df?auto=format&fit=crop&w=1200&q=85",
-    alt: "プロフェッショナルなカット作業の様子",
+    alt: "カット施術中のワンシーン",
   },
   {
     id: 5,
     src: "https://images.unsplash.com/photo-1516975080664-ed2fc6a32937?auto=format&fit=crop&w=1200&q=85",
-    alt: "ハイトーンカラーとグラデーション",
+    alt: "透明感のあるカラーリング",
   },
   {
     id: 6,
     src: "https://images.unsplash.com/photo-1585747860715-2ba37e788b70?auto=format&fit=crop&w=1200&q=85",
-    alt: "スタイリング後の完成スタイル",
+    alt: "仕上げ後のスタイルフォト",
   },
   {
     id: 7,
     src: "https://images.unsplash.com/photo-1519415510236-718bdfcd89c8?auto=format&fit=crop&w=1200&q=85",
-    alt: "メンズカットの仕上がり",
+    alt: "メンズカットのフィニッシュ",
   },
   {
     id: 8,
     src: "https://images.unsplash.com/photo-1522338242992-e1a54906a8da?auto=format&fit=crop&w=1200&q=85",
-    alt: "ロングレイヤーのスタイリング",
+    alt: "ロングレイヤーの柔らかな動き",
   },
   {
     id: 9,
     src: "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1200&q=85",
-    alt: "サロンの待合スペース",
+    alt: "落ち着いた待合スペース",
   },
   {
     id: 10,
     src: "https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=1200&q=85",
-    alt: "カラーリング作業中の様子",
+    alt: "カラー施術のディテール",
   },
   {
     id: 11,
     src: "https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?auto=format&fit=crop&w=1200&q=85",
-    alt: "ナチュラルなボブスタイル",
+    alt: "自然な丸みのボブデザイン",
   },
   {
     id: 12,
     src: "https://images.unsplash.com/photo-1605497788044-5a32c7078486?auto=format&fit=crop&w=1200&q=85",
-    alt: "パーマの仕上がり",
-  },
-  {
-    id: 13,
-    src: "https://images.unsplash.com/photo-1605497788044-5a32c7078486?auto=format&fit=crop&w=1200&q=85",
-    alt: "カラーとカットの組み合わせ",
-  },
-  {
-    id: 14,
-    src: "https://images.unsplash.com/photo-1605497788044-5a32c7078486?auto=format&fit=crop&w=1200&q=85",
-    alt: "サロンのミラーとライティング",
-  },
-  {
-    id: 15,
-    src: "https://images.unsplash.com/photo-1605497788044-5a32c7078486?auto=format&fit=crop&w=1200&q=85",
-    alt: "完成したヘアスタイルのポートレート",
+    alt: "柔らかなニュアンスパーマ",
   },
 ];
 
 export const reviews: Review[] = [
   {
     id: 1,
-    text: "初めて来店しましたが、スタッフの方の対応がとても丁寧で、仕上がりも期待以上でした。髪が伸びても形が崩れにくく、2ヶ月経ってもまだ綺麗な状態です。",
+    text: "仕上がりが綺麗なのはもちろん、伸びても形が崩れにくく毎朝が本当に楽です。",
     name: "Kanaさん（32歳）",
   },
   {
     id: 2,
-    text: "カラーの提案がいつも的確で、肌のトーンに合わせて選んでくれるので安心です。服とのバランスまで考えてくれるのが嬉しいです。",
+    text: "カラーの提案が的確で、肌の透明感まで変わって見えるのが毎回うれしいです。",
     name: "Ryoさん（29歳）",
   },
   {
     id: 3,
-    text: "派手すぎず、でもおしゃれな仕上がりにいつも満足しています。落ち着いた雰囲気のサロンで、リラックスしながら施術を受けられます。",
+    text: "空間が静かで落ち着いていて、施術時間そのものがリフレッシュになります。",
     name: "Maiさん（35歳）",
+  },
+];
+
+export const newsItems: NewsItem[] = [
+  {
+    id: 1,
+    date: "2026.02.20",
+    category: "News",
+    title: "春のカラーキャンペーンを開始しました",
+    body: "透明感カラーと集中トリートメントを組み合わせた期間限定プランをご案内しています。",
+  },
+  {
+    id: 2,
+    date: "2026.02.14",
+    category: "Info",
+    title: "3月の定休日について",
+    body: "毎週火曜日に加え、3月18日（水）は店内メンテナンスのため休業となります。",
+  },
+  {
+    id: 3,
+    date: "2026.02.08",
+    category: "Media",
+    title: "スタイリング記事掲載のお知らせ",
+    body: "LUXEのショートスタイル提案がオンラインメディアに掲載されました。詳しくは店頭でご案内します。",
   },
 ];
 
