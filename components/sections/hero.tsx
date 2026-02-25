@@ -42,7 +42,7 @@ export function HeroSection() {
       <motion.video
         style={{ scale: videoScale }}
         className="pointer-events-none absolute inset-0 h-full w-full object-cover"
-        src={process.env.NEXT_PUBLIC_HERO_VIDEO_URL?.trim() || "/dashboard-bg.mov"}
+        src={process.env.NEXT_PUBLIC_HERO_VIDEO_URL?.trim() || "/examplevideo.mov"}
         autoPlay
         muted
         loop
