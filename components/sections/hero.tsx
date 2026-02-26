@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 import {
   motion,
   useReducedMotion,
@@ -11,9 +11,21 @@ import { Container } from "@/components/ui/container";
 import { ButtonLink } from "@/components/ui/button";
 import { SALON_NAME } from "@/lib/content";
 
+const HERO_VIDEO_URL = process.env.NEXT_PUBLIC_HERO_VIDEO_URL?.trim();
+
 export function HeroSection() {
   const sectionRef = useRef<HTMLElement | null>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
   const prefersReducedMotion = useReducedMotion();
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+    const play = () => video.play().catch(() => {});
+    video.addEventListener("canplay", play);
+    if (video.readyState >= 3) play();
+    return () => video.removeEventListener("canplay", play);
+  }, []);
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -40,13 +52,27 @@ export function HeroSection() {
   return (
     <section ref={sectionRef} className="relative overflow-hidden bg-[color:var(--bg-base)]">
       <motion.video
+        ref={videoRef}
         style={{ scale: videoScale }}
         className="pointer-events-none absolute inset-0 h-full w-full object-cover"
-        src={process.env.NEXT_PUBLIC_HERO_VIDEO_URL?.trim() || "/examplevideo.mov"}
+        {...(HERO_VIDEO_URL
+          ? { src: HERO_VIDEO_URL }
+          : {
+              children: (
+                <>
+                  <source src="/hero-bg.webm" type="video/webm" />
+                  <source src="/hero-bg.mp4" type="video/mp4" />
+                </>
+              ),
+            })}
+        poster="/hero-bg-poster.jpg"
+        preload="metadata"
         autoPlay
         muted
         loop
         playsInline
+        disablePictureInPicture
+        aria-hidden="true"
       />
 
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/42 via-black/56 to-[color:var(--bg-base)]/94" />
